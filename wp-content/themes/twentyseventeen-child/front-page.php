@@ -15,7 +15,7 @@
 	endif;  
 	?>
 
-	<section class="pt-4 pb-3">
+	<section class="pb-3">
 		<div class="latest-post">
 			<div class="d-flex justify-content-between section-title-wrapper">
 				<h2>Resources</h2>	

@@ -23,7 +23,7 @@ function extra_child_scripts() {
 
 	wp_enqueue_script('Popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',  null, null, true  );
 	wp_enqueue_script('Bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',  null, null, true  );
-	wp_enqueue_script('aisa-map-js', '/wp-content/themes/twentyseventeen-child/js/script.js?ver=0.91798',  null, null, true  );
+	wp_enqueue_script('aisa-map-js', '/wp-content/themes/twentyseventeen-child/js/script.js?ver=0.931',  null, null, true  );
 }
 
 // =================== Footer Widgets
@@ -73,3 +73,17 @@ function getData(){
 
 add_action( 'wp_ajax_getData', 'getData' );
 add_action( 'wp_ajax_nopriv_getData', 'getData' );
+
+// =================== Map Stats Data
+function getStatsData(){
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL,'http://outbreak-asia.herokuapp.com/global');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($ch);
+	curl_close($ch);
+	die($response);
+}
+
+
+add_action( 'wp_ajax_getStatsData', 'getStatsData' );
+add_action( 'wp_ajax_nopriv_getStatsData', 'getStatsData' );
