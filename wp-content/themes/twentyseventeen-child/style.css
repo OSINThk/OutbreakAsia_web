@@ -225,7 +225,7 @@ span.current{color:#000 !important;font-weight: bold}
 .stastatics-display-area .stastatics-display-box.total-death-cases .stastatics-display-box-counting{color: #ff4c3f;}
 .stastatics-updates-area{width: 550px;display: flex;padding:5px;background-color: #375165;margin-top: 10px;justify-content: center;}
 .stastatics-updates-area span{color: #9ecaec;font-size: 13px;}
-.leaflet-control-zoom{margin-top: 90px}
+.leaflet-control-zoom{margin-top: 0px}
 .leaflet-safari .leaflet-tile-container{width: 100% !important; height: 100% !important;}
 .twentyseventeen-front-page.has-header-image .custom-header-media:before, .twentyseventeen-front-page.has-header-video .custom-header-media:before, .home.blog.has-header-image .custom-header-media:before, .home.blog.has-header-video .custom-header-media:before{display: none !important}
 
@@ -249,6 +249,15 @@ span.current{color:#000 !important;font-weight: bold}
 .btn-secondary.map-filter-btn.focus, .btn-secondary.map-filter-btn:focus {box-shadow: none !important;outline: none !important}
 .stats-sub{padding-right: 25px}
 
+/*=============Leaflet Search==============*/
+.leaflet-control-search{margin-top: 90px !important;background-color: transparent !important;box-shadow: none !important;}
+.leaflet-control-search .search-input{width: auto !important;min-width: 250px;font-size: 18px !important;color:#fff !important;border:none !important;border-bottom:1px solid #fff !important;height:25px !important;background-color: #f3f3f34d !important;margin: 3px 10px 3px 3px !important;box-shadow: none !important;backdrop-filter: blur(4px);padding: 14px !important;margin-top: -1px !important;}
+.leaflet-control-search .search-tooltip{margin-left: 0;width: 100%}
+.leaflet-control-search .search-cancel{right: 35px !important;opacity: 1 !important;}
+.leaflet-control-search .search-input::placeholder{color:#eee !important;}
+.leaflet-control-search .search-tip{font-size: 16px !important;padding: 5px !important;}
+.leaflet-control-search .search-alert{font-size: 17px !important}
+
 /*=============Responsive==============*/
 @media only screen and (max-width: 1440px) {
 	.recent-post-row .post-col .info {min-height: 175px;}
@@ -264,7 +273,7 @@ span.current{color:#000 !important;font-weight: bold}
 }
 @media (max-width:1280px) and (min-width:1024px) {
 
-    .main-navigation a {padding: 13px 5.2px;}
+    .main-navigation a {padding: 13px 5.2px;font-size: 12px !important}
 }
 @media only screen and (max-width: 1024px) {
 	.site-header .navigation-top .menu-scroll-down{right: -5px;}
@@ -274,6 +283,7 @@ span.current{color:#000 !important;font-weight: bold}
 	.leaflet-safari .leaflet-tile-container{width: 100% !important; height: 100% !important;}
 }
 @media only screen and (max-width: 992px) {
+	.leaflet-control-search{margin-top: 10px !important;}
 	.filter-map-wrapper{margin-top: 0;padding:5px;}
 	.filter-map-wrapper h6{font-size: 11px}
 	.filter-map-wrapper .btn{padding: 5px !important;font-size: 11px !important}
@@ -316,6 +326,10 @@ span.current{color:#000 !important;font-weight: bold}
 	.recent-post-row .post-col .info .post-col-title{font-size: 16px;margin-top: 0px}
 }
 @media only screen and (max-width: 767px){
+	.leaflet-control-search .search-input{font-size: 14px !important;color:#000 !important;background-color: #fff !important;backdrop-filter: blur(0px);}
+	.leaflet-control-search .search-tip{font-size: 14px !important;padding: 4px !important;}
+	.leaflet-control-search .search-alert{font-size: 14px !important}
+	.leaflet-control-search .search-input::placeholder{color:#3a3a3a !important;}
 	#header-map{transform: translateY(0px);}
 	.logo a{font-size: 14px}
 	.footer-copyright-left{width: 100%}

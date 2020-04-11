@@ -24,7 +24,9 @@
 
   gtag('config', 'UA-162546881-1');
 </script>
-
+<script type="text/javascript">
+	var COVID19BASE_URL = "<?php echo get_site_url(); ?>";
+</script>
 
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
@@ -34,6 +36,7 @@
   href="https://fonts.googleapis.com/css?family=Poppins">
 
 <?php wp_head(); ?> 
+
 </head>
 
 <body <?php body_class(); ?>>

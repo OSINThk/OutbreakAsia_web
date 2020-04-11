@@ -18,12 +18,13 @@ function extra_child_scripts() {
 	wp_enqueue_script('leaflet-js');
 	wp_register_script( 'jquery-leaflet-js', 'https://code.jquery.com/jquery-2.2.4.min.js', null, null, true );
 	wp_enqueue_script('jquery-leaflet-js');
-
+	wp_enqueue_style('leaflet-search', 'https://unpkg.com/leaflet-search@2.3.7/dist/leaflet-search.src.css');
+	wp_enqueue_script('leaflet-search', 'https://unpkg.com/leaflet-search@2.3.7/dist/leaflet-search.src.js',  null, null, true  );
 	
 
 	wp_enqueue_script('Popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',  null, null, true  );
 	wp_enqueue_script('Bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',  null, null, true  );
-	wp_enqueue_script('aisa-map-js', '/wp-content/themes/twentyseventeen-child/js/script.js?ver=0.931',  null, null, true  );
+	wp_enqueue_script('aisa-map-js', '/wp-content/themes/twentyseventeen-child/js/script.js?ver=0.9352',  null, null, true  );
 }
 
 // =================== Footer Widgets
