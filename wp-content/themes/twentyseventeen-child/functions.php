@@ -20,11 +20,12 @@ function extra_child_scripts() {
 	wp_enqueue_script('jquery-leaflet-js');
 	wp_enqueue_style('leaflet-search', 'https://unpkg.com/leaflet-search@2.3.7/dist/leaflet-search.src.css');
 	wp_enqueue_script('leaflet-search', 'https://unpkg.com/leaflet-search@2.3.7/dist/leaflet-search.src.js',  null, null, true  );
-	
-
+	wp_enqueue_style('leaflet-fullscreen', 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css');
+	wp_enqueue_script('leaflet-fullscreen', 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js',  null, null, true  );
 	wp_enqueue_script('Popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',  null, null, true  );
 	wp_enqueue_script('Bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',  null, null, true  );
-	wp_enqueue_script('aisa-map-js', '/wp-content/themes/twentyseventeen-child/js/script.js?ver=0.9352',  null, null, true  );
+	wp_enqueue_script('localization', '/wp-content/themes/twentyseventeen-child/js/localization.js?ver=0.1',  null, null, true  );
+	wp_enqueue_script('aisa-map-js', '/wp-content/themes/twentyseventeen-child/js/script.js?ver=0.963',  null, null, true  );
 }
 
 // =================== Footer Widgets
@@ -58,7 +59,7 @@ function twentyseventeen_cstm_body_classes( $classes ) {
 add_filter( 'body_class', 'twentyseventeen_cstm_body_classes' );
 
 // =================== Map Geojson Data
-function getData(){
+function getData_(){
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL,'https://outbreak-asia.herokuapp.com/data');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -71,6 +72,51 @@ function getData(){
 	die($response);
 }
 
+function getData(){
+	$ip = '';
+	if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+	    //ip from share internet
+	    $ip = $_SERVER['HTTP_CLIENT_IP'];
+	}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+	    //ip pass from proxy
+	    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	}else{
+	    $ip = $_SERVER['REMOTE_ADDR'];
+	}
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL,'https://api.ipstack.com/' . $ip . '?access_key=cf365d7d7fde1ff75d71daeedcbfdec9');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($ch);
+	curl_close($ch);
+
+	$response = json_decode($response);
+
+	$clientLat = '';
+	$clientLong = '';
+	if (!empty($response)){
+		$clientLat = $response->latitude;
+		$clientLong = $response->longitude;
+	}
+	curl_close($ch);
+
+	$json_result['location'] = array(
+		'client_lat' => $clientLat,
+		'client_long' => $clientLong
+	);
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL,'https://outbreak-asia.herokuapp.com/v2/data');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($ch);
+	if (!empty($response)){
+		$response = json_decode($response);
+	}
+	curl_close($ch);
+
+	$json_result['map_data'] = $response;
+	die(json_encode($json_result));
+}
 
 add_action( 'wp_ajax_getData', 'getData' );
 add_action( 'wp_ajax_nopriv_getData', 'getData' );
@@ -88,3 +134,33 @@ function getStatsData(){
 
 add_action( 'wp_ajax_getStatsData', 'getStatsData' );
 add_action( 'wp_ajax_nopriv_getStatsData', 'getStatsData' );
+
+function covid19_excerpt_more_link( $output )
+{
+    $html .= '... <span class="post-more">&nbsp;';
+    $html .= sprintf(
+        '<a href="%s#more-%s" class="more-link" title="read more" >'
+        ,get_permalink()
+        ,get_the_ID()
+    );
+    $html .= '<em>read more</em></a></span>';
+
+    // Override 'excerpt_more'
+    if ( 'excerpt_more' === current_filter() )
+        return;
+
+    // Strip the content for the `get_the_excerpt` filter.
+    //$output = wp_trim_words( $output, 10 );
+    $output = substr($output, 0, 70);
+
+    // Append for the excerpt
+    if ( 'get_the_excerpt' === current_filter() )
+        return $output.$html;
+
+    // The permalink for the `the_content_more_link`-filter.
+    return $html;
+}
+# "More" link for the content
+add_filter( 'the_content_more_link', 'covid19_excerpt_more_link' );
+add_filter( 'get_the_excerpt', 'covid19_excerpt_more_link' );
+add_filter( 'excerpt_more', 'covid19_excerpt_more_link' );

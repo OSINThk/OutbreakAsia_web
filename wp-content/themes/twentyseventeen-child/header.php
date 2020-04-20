@@ -26,6 +26,7 @@
 </script>
 <script type="text/javascript">
 	var COVID19BASE_URL = "<?php echo get_site_url(); ?>";
+	var SELECTED_LANGUAGE = "<?php echo pll_current_language(); ?>";
 </script>
 
 <meta charset="<?php bloginfo( 'charset' ); ?>">

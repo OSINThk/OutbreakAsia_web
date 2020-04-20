@@ -17,7 +17,7 @@
 
 	<section class="pb-3">
 		<div class="latest-post">
-			<div class="d-flex justify-content-between section-title-wrapper">
+			<div class="d-flex justify-content-between section-title-wrapper align-items-center">
 				<h2>Resources</h2>	
 				<a href="/blog">View All</a>
 			</div>
@@ -38,6 +38,7 @@
 								<h5 class="post-col-title"><?php the_title(); ?></h5>
 								<p class="post-col-description">
 									<?php
+										echo get_the_excerpt();
 										// $text = strip_shortcodes( $post->post_content );
 										// $text = apply_filters( 'the_content', $text );
 										// $text = str_replace(']]>', ']]&gt;', $text);
@@ -108,7 +109,7 @@
 				</a>
 			</div>
 			<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-				<a href="#" class="donations-col d-flex flex-column">
+				<a href="https://covid19.osinthk.org/donations/thailand/" class="donations-col d-flex flex-column">
 					<span class="col-donation-heading">Thailand - Donation for</span>
 					<span class="arrow-right"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
 				</a>

@@ -48,7 +48,12 @@ get_header(); ?>
 									<?php twentyseventeen_posted_on(); ?>
 								</div>
 								<a href="<?php the_permalink() ?>" class="post-col-title-anchor">
-									<h5 class="post-col-title"><?php the_title(); ?></h5>
+									<h5 class="post-col-title "><?php the_title(); ?></h5>
+									<p class="post-col-description">
+										<?php   echo get_the_excerpt(); 
+									 
+										?>
+									</p>
 								</a>
 							</div>
 						</div>
